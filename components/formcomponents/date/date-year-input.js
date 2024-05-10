@@ -16,8 +16,8 @@ const DateYearInput = (props) => {
         if (Array.isArray(props.answer)) {
             return props.answer.map(m => { var _a; return (_a = (0, createDateFromYear_1.createDateFromYear)(props.item, m)) === null || _a === void 0 ? void 0 : _a.getFullYear(); });
         }
-        if (props.answer.valueDate) {
-            return props.answer.valueDate;
+        if (props.answer?.valueDate) {
+            return props.answer?.valueDate;
         }
         return answerState;
     };
