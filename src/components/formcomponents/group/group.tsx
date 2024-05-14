@@ -241,19 +241,24 @@ export class Group extends React.Component<Props, State> {
       ADD_ATTR: ['target'],
     }) as unknown as string;
     return (
-      <React.Fragment>
+      <div style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+      }}>
         <HeaderTag className={'page_refero__heading'} dangerouslySetInnerHTML={{ __html: headerText }} />
         {this.props.renderHelpButton()}
-        {this.props?.questionnaire?.contained ? (
+        {this.props.pdf && this.props?.questionnaire?.contained ? (
           <span style={{
             backgroundColor: '#1399EC1A',
-            padding: '8px 2px',
-            fontWeight: 600
+            padding: '2px 8px',
+            fontWeight: 600,
+            fontSize: "16px"
           }}>
-            {this.props?.questionnaire?.contained?.length} questions
-          </span>
+          {this.props?.questionnaire?.contained?.length} questions
+        </span>
         ) : null}
-      </React.Fragment>
+      </div>
     );
   };
 
