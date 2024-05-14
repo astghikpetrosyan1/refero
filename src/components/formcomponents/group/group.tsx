@@ -244,6 +244,15 @@ export class Group extends React.Component<Props, State> {
       <React.Fragment>
         <HeaderTag className={'page_refero__heading'} dangerouslySetInnerHTML={{ __html: headerText }} />
         {this.props.renderHelpButton()}
+        {this.props?.questionnaire?.contained ? (
+          <span style={{
+            backgroundColor: '#1399EC1A',
+            padding: '8px 2px',
+            fontWeight: 600
+          }}>
+            {this.props?.questionnaire?.contained?.length} questions
+          </span>
+        ) : null}
       </React.Fragment>
     );
   };

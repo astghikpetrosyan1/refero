@@ -30,20 +30,20 @@ export const DateYearInput = (props: React.PropsWithChildren<Props>): JSX.Elemen
 
   const [answerState, setAnswerState] = React.useState<number | undefined>(0);
 
-  const getYear = (): (number | undefined)[] | undefined => {
+  const getYear = (): (number | undefined)[] | undefined | string | number => {
     if (Array.isArray(props.answer)) {
-      return props.answer.map(m => createDateFromYear(props.item, m)?.getFullYear());
+      return props.answer.map((m: QuestionnaireResponseItemAnswer) => createDateFromYear(props.item, m)?.getFullYear());
     }
 
-    if (props.answer.valueDate) {
-      return props.answer.valueDate
+    if (props.answer?.valueDate) {
+      return props.answer?.valueDate
     }
 
     return answerState
   };
 
   React.useEffect(() => {
-    props.answer ? setAnswerState(Number(props.answer.valueDate)) : setAnswerState(getYear()?.[0])
+    props.answer ? setAnswerState(Number(props.answer?.valueDate)) : setAnswerState(getYear()?.[0])
   }, [props.answer]);
 
   function getYearInputResources(): YearErrorResources {
@@ -63,13 +63,18 @@ export const DateYearInput = (props: React.PropsWithChildren<Props>): JSX.Elemen
     props.onDateValueChange(year === 0 ? '' : year.toString());
   };
 
-  const getPDFValue = (): string => {
+  const getPDFValue = (): string | number => {
     const ikkeBesvartText = props.resources?.ikkeBesvart || '';
-    return (
-      getYear()
+
+    const year = getYear()
+
+    if (Array.isArray(year)) {
+      return year
         ?.map(m => m?.toString())
         .join(', ') || ikkeBesvartText
-    );
+    }
+
+    return year || ikkeBesvartText;
   };
 
   if (props.pdf || isReadOnly(props.item)) {
