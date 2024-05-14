@@ -248,14 +248,14 @@ export class Group extends React.Component<Props, State> {
       }}>
         <HeaderTag className={'page_refero__heading'} dangerouslySetInnerHTML={{ __html: headerText }} />
         {this.props.renderHelpButton()}
-        {this.props.pdf && this.props?.questionnaire?.contained ? (
+        {this.props.pdf && this.props?.responseItem?.item?.length ? (
           <span style={{
             backgroundColor: '#1399EC1A',
             padding: '2px 8px',
             fontWeight: 600,
             fontSize: "16px"
           }}>
-          {this.props?.questionnaire?.contained?.length} questions
+          {this.props?.responseItem?.item?.length} questions
         </span>
         ) : null}
       </div>
