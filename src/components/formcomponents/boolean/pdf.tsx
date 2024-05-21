@@ -14,7 +14,7 @@ const pdf: React.SFC<Props> = ({ item, checked, children, onRenderMarkdown }) =>
   return (
     <div>
       {/* eslint-disable react/jsx-no-literals */}
-      {checked ? <b>- [X]</b> : <b>[&nbsp;&nbsp;&nbsp;&nbsp;]</b>} {`${renderPrefix(item)} ${getText(item, onRenderMarkdown)}`}
+      {checked ? <b>[ X ]</b> : <b>[&nbsp;&nbsp;&nbsp;&nbsp;]</b>} {`${renderPrefix(item)} ${getText(item, onRenderMarkdown)}`}
       {children ? (
         <span>
           <br />
