@@ -126,7 +126,7 @@ export class Choice extends React.Component<ChoiceProps & ValidationProps, Choic
       return text;
     }
 
-    return Array.isArray(value) ? value.map(el => getDisplay(getOptions(this.props.resources, item, containedResources), el)).join(', ') : value;
+    return Array.isArray(value) ? value.map(el => getDisplay(getOptions(this.props.resources, item, containedResources), el)).filter((choice) => choice !== '').join(', ') : value;
   };
 
   getAnswerValueCoding = (code: string, systemArg?: string, displayArg?: string): Coding => {
