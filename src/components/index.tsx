@@ -70,7 +70,8 @@ class Refero extends React.Component<StateProps & DispatchProps & ReferoProps, S
     };
   }
 
-  onSubmit = (): void => {
+  onSubmit = (e:  React.FormEvent): void => {
+    e.preventDefault()
     const { formData, onSubmit } = this.props;
 
     if (formData && formData.Content && onSubmit) {

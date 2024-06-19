@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import * as React from 'react';
 import { Resources } from '../util/resources';
 import { FormDefinition } from '../reducers/form';
 import { ReferoProps } from '../types/referoProps';
@@ -9,7 +9,7 @@ interface StepViewProps {
     formItems: Array<JSX.Element> | undefined;
     formDefinition: FormDefinition;
     onSave: () => void;
-    onSubmit: () => void;
+    onSubmit: (event?: React.FormEvent) => void;
     onStepChange?: (stepIndex: number) => void;
 }
 declare const StepView: ({ isAuthorized, referoProps, resources, formItems, formDefinition, onSave, onSubmit, onStepChange }: StepViewProps) => JSX.Element;

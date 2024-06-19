@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import * as React from 'react';
 import { Resources } from '../util/resources';
 import { ReferoProps } from '../types/referoProps';
 interface RenderFormProps {
@@ -8,7 +8,7 @@ interface RenderFormProps {
     resources: Resources;
     formItemsToBeRendered: Array<JSX.Element> | JSX.Element | undefined;
     onSave: () => void;
-    onSubmit: () => void;
+    onSubmit: (event?: React.FormEvent) => void;
     displayNextButton?: boolean;
     displayPreviousButton?: boolean;
     nextStep?: () => void;

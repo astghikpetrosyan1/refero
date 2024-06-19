@@ -13,7 +13,7 @@ interface StepViewProps {
   formItems: Array<JSX.Element> | undefined;
   formDefinition: FormDefinition;
   onSave: () => void;
-  onSubmit: () => void;
+  onSubmit: (event?: React.FormEvent) => void;
   onStepChange?: (stepIndex: number) => void;
 }
 
