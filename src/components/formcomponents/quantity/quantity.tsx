@@ -162,7 +162,7 @@ class Quantity extends React.Component<Props & ValidationProps, {}> {
             onChange={this.handleChange}
             errorMessage={getValidationTextExtension(item)}
             pattern={getDecimalPattern(item)}
-            className="page_refero__quantity"
+            className="page_refero__quantity atom_input--1"
             helpButton={this.props.renderHelpButton()}
             helpElement={this.props.renderHelpElement()}
             validateOnExternalUpdate={true}

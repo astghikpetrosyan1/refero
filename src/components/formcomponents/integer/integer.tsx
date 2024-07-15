@@ -146,7 +146,7 @@ class Integer extends React.Component<Props & ValidationProps, {}> {
                 }
               },
             }}
-            className="page_refero__input"
+            className="page_refero__input atom_input--4"
             onChange={this.handleChange}
             helpButton={this.props.renderHelpButton()}
             helpElement={this.props.renderHelpElement()}
