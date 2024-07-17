@@ -19,7 +19,6 @@ interface Props {
     renderHelpButton: () => JSX.Element;
     renderHelpElement: () => JSX.Element;
     onRenderMarkdown?: (item: QuestionnaireItem, markdown: string) => string;
-    choiceImage: boolean;
 }
 declare const CheckboxView: React.SFC<Props>;
 export default CheckboxView;

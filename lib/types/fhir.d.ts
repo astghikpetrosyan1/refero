@@ -8307,6 +8307,8 @@ export interface QuestionnaireItem extends BackboneElement {
     _repeats?: Element;
     required?: boolean;
     _required?: Element;
+    choiceImage?: boolean;
+    _choiceImage?: Element;
     text?: string;
     _text?: Element;
     type: string;

@@ -33,7 +33,6 @@ interface Props {
   renderHelpButton: () => JSX.Element;
   renderHelpElement: () => JSX.Element;
   onRenderMarkdown?: (item: QuestionnaireItem, markdown: string) => string;
-  choiceImage: boolean
 }
 
 const CheckboxView: React.SFC<Props> = ({
@@ -77,7 +76,7 @@ const CheckboxView: React.SFC<Props> = ({
             errorMessage={getValidationTextExtension(item)}
             helpButton={renderHelpButton()}
             helpElement={renderHelpElement()}
-            fieldsetClassName={other.choiceImage ? 'image-container' : ''}
+            fieldsetClassName={item.choiceImage ? 'image-container' : ''}
             validateOnExternalUpdate={true}
             isStyleBlue
             {...other}

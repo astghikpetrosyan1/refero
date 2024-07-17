@@ -23541,6 +23541,11 @@ export interface QuestionnaireItem extends BackboneElement {
   required?: boolean;
   _required?: Element;
   /**
+   * Questionnaire.item.choiceImage only has meaning for elements that are have choices with images
+   */
+  choiceImage?: boolean;
+  _choiceImage?: Element;
+  /**
    * When using this element to represent the name of a section, use group type item and also make sure to limit the text element to a short string suitable for display as a section heading.  Group item instructions should be included as a display type item within the group.
    */
   text?: string;
