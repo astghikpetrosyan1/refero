@@ -15,7 +15,12 @@ import Label from '../label';
 import SubLabel from '../sublabel';
 
 interface Props {
-  options?: Array<Options>;
+  options?: Array<{
+    type: string;
+    label: string;
+    disabled?: boolean;
+    image?: string;
+  }>;
   item: QuestionnaireItem;
   questionnaire?: Questionnaire;
   id?: string;
@@ -28,6 +33,7 @@ interface Props {
   renderHelpButton: () => JSX.Element;
   renderHelpElement: () => JSX.Element;
   onRenderMarkdown?: (item: QuestionnaireItem, markdown: string) => string;
+  choiceImage: boolean
 }
 
 const CheckboxView: React.SFC<Props> = ({
@@ -51,7 +57,7 @@ const CheckboxView: React.SFC<Props> = ({
   }
 
   const checkboxes = options.map(el => {
-    return { label: el.label, id: el.type, checked: isSelected(el, selected) };
+    return { label: el.label, id: el.type, checked: isSelected(el, selected), image: el.image };
   });
   const subLabelText = getSublabelText(item, onRenderMarkdown, questionnaire, resources);
 
@@ -71,8 +77,10 @@ const CheckboxView: React.SFC<Props> = ({
             errorMessage={getValidationTextExtension(item)}
             helpButton={renderHelpButton()}
             helpElement={renderHelpElement()}
+            fieldsetClassName={other.choiceImage ? 'image-container' : ''}
             validateOnExternalUpdate={true}
             isStyleBlue
+            {...other}
           />
         </Validation>
         {renderDeleteButton('page_refero__deletebutton--margin-top')}

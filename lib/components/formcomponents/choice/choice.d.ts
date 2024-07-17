@@ -26,6 +26,7 @@ export interface ChoiceProps {
     renderHelpButton: () => JSX.Element;
     renderHelpElement: () => JSX.Element;
     isHelpOpen?: boolean;
+    choiceImage?: boolean;
     onAnswerChange: (newState: GlobalState, path: Array<Path>, item: QuestionnaireItem, answer: QuestionnaireResponseItemAnswer) => void;
     onRenderMarkdown?: (item: QuestionnaireItem, markdown: string) => string;
     fetchValueSet?: (searchString: string, item: QuestionnaireItem, successCallback: (valueSet: ValueSet) => void, errorCallback: (error: string) => void) => void;

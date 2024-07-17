@@ -314,7 +314,7 @@ function createRadiogroupOptionFromQuestionnaireOption(option: QuestionnaireItem
 }
 
 function createRadiogroupOptionFromValueCoding(coding: Coding, readOnly: boolean): Options {
-  return createRadiogroupOption(String(coding.code), String(coding.display), readOnly);
+  return createRadiogroupOption(String(coding.code), String(coding.display), readOnly, coding.image);
 }
 
 function createRadiogroupOptionFromValueReference(reference: Reference, readOnly: boolean): Options {
@@ -387,11 +387,17 @@ function getExpansionOptions(valueSet: ValueSet, disabled: boolean): Array<Optio
   return options;
 }
 
-function createRadiogroupOption(type: string, label: string, disabled: boolean): Options {
+function createRadiogroupOption(type: string, label: string, disabled: boolean, image: string = ''): {
+  type: string;
+  label: string;
+  disabled?: boolean;
+  image?: string;
+} {
   return {
     type: type,
     label: label,
     disabled,
+    image
   };
 }
 

@@ -200,6 +200,10 @@ export interface Coding extends Element {
    */
   version?: string;
   _version?: Element;
+  /**
+   * The image key is options cover image URL
+   */
+  image?: string;
 }
 /**
  * Specifies contact information for a person or organization.

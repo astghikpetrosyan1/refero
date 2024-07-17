@@ -49,6 +49,7 @@ export interface ChoiceProps {
   renderHelpButton: () => JSX.Element;
   renderHelpElement: () => JSX.Element;
   isHelpOpen?: boolean;
+  choiceImage?: boolean;
   onAnswerChange: (newState: GlobalState, path: Array<Path>, item: QuestionnaireItem, answer: QuestionnaireResponseItemAnswer) => void;
   onRenderMarkdown?: (item: QuestionnaireItem, markdown: string) => string;
   fetchValueSet?: (
@@ -198,13 +199,13 @@ export class Choice extends React.Component<ChoiceProps & ValidationProps, Choic
   renderCheckbox = (options: Array<Options> | undefined): JSX.Element => {
     return (
       <CheckboxView
+        choiceImage={this.props.choiceImage || false}
         options={options}
         id={this.props.id}
         handleChange={this.handleCheckboxChange}
         selected={this.getValue(this.props.item, this.props.answer)}
         onRenderMarkdown={this.props.onRenderMarkdown}
-        {...this.props}
-      >
+        {...this.props}      >
         {this.props.children}
       </CheckboxView>
     );
