@@ -65,6 +65,7 @@ const CheckboxView: React.SFC<Props> = ({
       <Collapse isOpened>
         <Validation {...other}>
           <CheckBoxGroup
+            {...item}
             legend={<Label item={item} onRenderMarkdown={onRenderMarkdown} questionnaire={questionnaire} resources={resources} />}
             subLabel={subLabelText ? <SubLabel subLabelText={subLabelText} /> : undefined}
             checkboxes={checkboxes}
