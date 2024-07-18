@@ -1,9 +1,13 @@
 import * as React from 'react';
 import { Questionnaire, QuestionnaireItem, QuestionnaireResponseItemAnswer } from '../../../types/fhir';
-import { Options } from '@helsenorge/form/components/radio-group';
 import { Resources } from '../../../util/resources';
 interface Props {
-    options?: Array<Options>;
+    options?: Array<{
+        type: string;
+        label: string;
+        disabled?: boolean;
+        image?: string;
+    }>;
     item: QuestionnaireItem;
     questionnaire?: Questionnaire;
     id?: string;

@@ -16,7 +16,12 @@ import Label from '../label';
 import SubLabel from '../sublabel';
 
 interface Props {
-  options?: Array<Options>;
+  options?: Array<{
+    type: string;
+    label: string;
+    disabled?: boolean;
+    image?: string;
+  }>;
   item: QuestionnaireItem;
   questionnaire?: Questionnaire;
   id?: string;
@@ -56,7 +61,7 @@ const CheckboxView: React.SFC<Props> = ({
   }
 
   const checkboxes = options.map(el => {
-    return { label: el.label, id: el.type, checked: isSelected(el, selected) };
+    return { label: el.label, id: el.type, checked: isSelected(el, selected), image: el.image };
   });
   const subLabelText = getSublabelText(item, onRenderMarkdown, questionnaire, resources);
 
