@@ -63,6 +63,7 @@ const RadioView: React.SFC<Props> = ({
       <Collapse isOpened>
         <Validation {...other}>
           <RadioGroup
+            {...item}
             legend={<Label item={item} onRenderMarkdown={onRenderMarkdown} questionnaire={questionnaire} resources={resources} />}
             subLabel={subLabelText ? <SubLabel subLabelText={subLabelText} /> : undefined}
             id={getId(id)}
@@ -74,6 +75,7 @@ const RadioView: React.SFC<Props> = ({
             getErrorMessage={getErrorMessage}
             helpButton={renderHelpButton()}
             helpElement={renderHelpElement()}
+            fieldsetClassName={item.choiceImage ? 'image-container' : ''}
             validateOnExternalUpdate={true}
             isStyleBlue
           />
