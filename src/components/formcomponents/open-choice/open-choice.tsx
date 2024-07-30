@@ -329,7 +329,7 @@ export class OpenChoice extends React.Component<Props & ValidationProps> {
   }
 
   renderCheckbox = (options: Array<Options> | undefined): JSX.Element => {
-    const showChoiceImage = this.props.extension ? this.props.extension.find((extension) => extension.url === IExtentionType.choiceImage)?.valueBoolean : false
+    const showChoiceImage = this.props.item.extension ? this.props.item.extension.find((extension) => extension.url === IExtentionType.choiceImage)?.valueBoolean : false
 
     return (
       <CheckboxView
@@ -367,7 +367,7 @@ export class OpenChoice extends React.Component<Props & ValidationProps> {
 
   renderRadio = (options: Array<Options> | undefined): JSX.Element => {
     const { item, resources, containedResources, children, id, answer, repeatButton, ...rest } = this.props;
-    const showChoiceImage = this.props.extension ? this.props.extension.find((extension) => extension.url === IExtentionType.choiceImage)?.valueBoolean : false
+    const showChoiceImage = item.extension ? item.extension.find((extension) => extension.url === IExtentionType.choiceImage)?.valueBoolean : false
 
     return (
       <RadioView
