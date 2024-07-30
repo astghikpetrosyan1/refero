@@ -6,7 +6,11 @@ interface Props {
         type: string;
         label: string;
         disabled?: boolean;
-        image?: string;
+        extension?: {
+            url: string;
+            valueSting?: string;
+            valueBoolean?: boolean;
+        }[];
     }>;
     item: QuestionnaireItem;
     questionnaire?: Questionnaire;
@@ -15,6 +19,7 @@ interface Props {
     selected?: Array<string | undefined>;
     resources?: Resources;
     repeatButton: JSX.Element;
+    showChoiceImage?: boolean;
     renderDeleteButton: (className?: string) => JSX.Element | undefined;
     renderOpenField: () => JSX.Element | undefined;
     answer: Array<QuestionnaireResponseItemAnswer> | QuestionnaireResponseItemAnswer;

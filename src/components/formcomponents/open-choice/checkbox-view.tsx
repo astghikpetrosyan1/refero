@@ -20,7 +20,11 @@ interface Props {
     type: string;
     label: string;
     disabled?: boolean;
-    image?: string;
+    extension?: {
+      url: string,
+      valueSting?: string,
+      valueBoolean?: boolean,
+    }[];
   }>;
   item: QuestionnaireItem;
   questionnaire?: Questionnaire;
@@ -29,6 +33,7 @@ interface Props {
   selected?: Array<string | undefined>;
   resources?: Resources;
   repeatButton: JSX.Element;
+  showChoiceImage?: boolean;
   renderDeleteButton: (className?: string) => JSX.Element | undefined;
   renderOpenField: () => JSX.Element | undefined;
   answer: Array<QuestionnaireResponseItemAnswer> | QuestionnaireResponseItemAnswer;
@@ -54,6 +59,7 @@ const CheckboxView: React.SFC<Props> = ({
   renderHelpButton,
   renderHelpElement,
   onRenderMarkdown,
+  showChoiceImage,
   ...other
 }) => {
   if (!options) {
@@ -61,7 +67,7 @@ const CheckboxView: React.SFC<Props> = ({
   }
 
   const checkboxes = options.map(el => {
-    return { label: el.label, id: el.type, checked: isSelected(el, selected), image: el.image };
+    return { label: el.label, id: el.type, checked: isSelected(el, selected), extension: el.extension };
   });
   const subLabelText = getSublabelText(item, onRenderMarkdown, questionnaire, resources);
 
@@ -83,7 +89,7 @@ const CheckboxView: React.SFC<Props> = ({
             helpButton={renderHelpButton()}
             helpElement={renderHelpElement()}
             validateOnExternalUpdate={true}
-            fieldsetClassName={item.choiceImage ? 'image-container' : ''}
+            fieldsetClassName={showChoiceImage ? 'image-container' : ''}
             isStyleBlue
           />
         </Validation>

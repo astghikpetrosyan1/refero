@@ -23,6 +23,7 @@ interface Props {
   validateInput: (value: string) => boolean;
   resources?: Resources;
   getErrorMessage: (val: string) => string;
+  showChoiceImage?: boolean;
   renderDeleteButton: (className: string) => JSX.Element | undefined;
   renderOpenField: () => JSX.Element | undefined;
   repeatButton: JSX.Element;
@@ -51,6 +52,7 @@ const RadioView: React.SFC<Props> = ({
   renderHelpButton,
   renderHelpElement,
   onRenderMarkdown,
+  showChoiceImage,
   ...other
 }) => {
   if (!options) {
@@ -75,7 +77,7 @@ const RadioView: React.SFC<Props> = ({
             getErrorMessage={getErrorMessage}
             helpButton={renderHelpButton()}
             helpElement={renderHelpElement()}
-            fieldsetClassName={item.choiceImage ? 'image-container' : ''}
+            fieldsetClassName={showChoiceImage ? 'image-container' : ''}
             validateOnExternalUpdate={true}
             isStyleBlue
           />

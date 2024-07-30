@@ -7,10 +7,16 @@ interface Props {
         label: string;
         disabled?: boolean;
         image?: string;
+        extension?: {
+            url: string;
+            valueSting?: string;
+            valueBoolean?: boolean;
+        }[];
     }>;
     item: QuestionnaireItem;
     questionnaire?: Questionnaire;
     id?: string;
+    showChoiceImage?: boolean;
     handleChange: (radioButton: string) => void;
     selected?: Array<string | undefined>;
     resources?: Resources;

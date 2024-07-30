@@ -32,6 +32,11 @@ export interface ChoiceProps {
     fetchValueSet?: (searchString: string, item: QuestionnaireItem, successCallback: (valueSet: ValueSet) => void, errorCallback: (error: string) => void) => void;
     autoSuggestProps?: AutoSuggestProps;
     fetchReceivers?: (successCallback: (receivers: Array<OrgenhetHierarki>) => void, errorCallback: () => void) => void;
+    extension?: {
+        url: string;
+        valueSting?: string;
+        valueBoolean?: boolean;
+    }[];
 }
 interface ChoiceState {
     valid: boolean;

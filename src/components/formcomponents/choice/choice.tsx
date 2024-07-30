@@ -31,6 +31,7 @@ import TextView from '../textview';
 import CheckboxView from './checkbox-view';
 import DropdownView from './dropdown-view';
 import RadioView from './radio-view';
+import { IExtentionType } from '../../../util/help';
 
 export interface ChoiceProps {
   item: QuestionnaireItem;
@@ -60,6 +61,14 @@ export interface ChoiceProps {
   ) => void;
   autoSuggestProps?: AutoSuggestProps;
   fetchReceivers?: (successCallback: (receivers: Array<OrgenhetHierarki>) => void, errorCallback: () => void) => void;
+  /**
+   * List of extension to check images, show hide conditions
+   */
+  extension?: {
+    url: string,
+    valueSting?: string,
+    valueBoolean?: boolean,
+  }[]
 }
 
 interface ChoiceState {
@@ -197,9 +206,10 @@ export class Choice extends React.Component<ChoiceProps & ValidationProps, Choic
   };
 
   renderCheckbox = (options: Array<Options> | undefined): JSX.Element => {
+    const showChoiceImage = this.props.extension ? this.props.extension.find((extension) => extension.url === IExtentionType.choiceImage)?.valueBoolean : false
     return (
       <CheckboxView
-        choiceImage={this.props.choiceImage || false}
+        showChoiceImage={showChoiceImage}
         options={options}
         id={this.props.id}
         handleChange={this.handleCheckboxChange}

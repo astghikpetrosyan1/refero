@@ -12,6 +12,7 @@ interface Props {
     validateInput: (value: string) => boolean;
     resources?: Resources;
     getErrorMessage: (val: string) => string;
+    showChoiceImage?: boolean;
     renderDeleteButton: (className: string) => JSX.Element | undefined;
     renderOpenField: () => JSX.Element | undefined;
     repeatButton: JSX.Element;

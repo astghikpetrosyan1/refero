@@ -314,7 +314,9 @@ function createRadiogroupOptionFromQuestionnaireOption(option: QuestionnaireItem
 }
 
 function createRadiogroupOptionFromValueCoding(coding: Coding, readOnly: boolean): Options {
-  return createRadiogroupOption(String(coding.code), String(coding.display), readOnly, coding.image);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  return createRadiogroupOption(String(coding.code), String(coding.display), readOnly, coding.extension);
 }
 
 function createRadiogroupOptionFromValueReference(reference: Reference, readOnly: boolean): Options {
@@ -387,17 +389,21 @@ function getExpansionOptions(valueSet: ValueSet, disabled: boolean): Array<Optio
   return options;
 }
 
-function createRadiogroupOption(type: string, label: string, disabled: boolean, image: string = ''): {
+function createRadiogroupOption(type: string, label: string, disabled: boolean, extension = []): {
   type: string;
   label: string;
   disabled?: boolean;
-  image?: string;
+  extension?: {
+    url: string,
+    valueSting?: string,
+    valueBoolean?: boolean,
+  }[]
 } {
   return {
     type: type,
     label: label,
     disabled,
-    image
+    extension
   };
 }
 

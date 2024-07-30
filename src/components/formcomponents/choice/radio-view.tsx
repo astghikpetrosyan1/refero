@@ -71,6 +71,7 @@ const RadioView: React.SFC<Props> = ({
             helpElement={renderHelpElement()}
             validateOnExternalUpdate={true}
             isStyleBlue
+            {...other}
           />
         </Validation>
         {renderDeleteButton('page_refero__deletebutton--margin-top')}

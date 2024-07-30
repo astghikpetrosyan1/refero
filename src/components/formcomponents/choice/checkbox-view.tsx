@@ -20,10 +20,16 @@ interface Props {
     label: string;
     disabled?: boolean;
     image?: string;
+    extension?: {
+      url: string,
+      valueSting?: string,
+      valueBoolean?: boolean,
+    }[];
   }>;
   item: QuestionnaireItem;
   questionnaire?: Questionnaire;
   id?: string;
+  showChoiceImage?: boolean;
   handleChange: (radioButton: string) => void;
   selected?: Array<string | undefined>;
   resources?: Resources;
@@ -48,6 +54,7 @@ const CheckboxView: React.SFC<Props> = ({
   renderDeleteButton,
   renderHelpButton,
   renderHelpElement,
+  showChoiceImage,
   onRenderMarkdown,
   ...other
 }) => {
@@ -56,7 +63,7 @@ const CheckboxView: React.SFC<Props> = ({
   }
 
   const checkboxes = options.map(el => {
-    return { label: el.label, id: el.type, checked: isSelected(el, selected), image: el.image };
+    return { label: el.label, id: el.type, checked: isSelected(el, selected), extension: el.extension };
   });
   const subLabelText = getSublabelText(item, onRenderMarkdown, questionnaire, resources);
 

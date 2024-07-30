@@ -201,9 +201,13 @@ export interface Coding extends Element {
   version?: string;
   _version?: Element;
   /**
-   * The image key is options cover image URL
+   * List of extension to check images, show hide conditions
    */
-  image?: string;
+  extension?: {
+    url: string,
+    valueSting?: string,
+    valueBoolean?: boolean,
+  }[]
 }
 /**
  * Specifies contact information for a person or organization.

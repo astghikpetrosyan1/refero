@@ -42,3 +42,9 @@ function getHelpItemControl(item: QuestionnaireItem): Coding | undefined {
 
   return;
 }
+
+export enum IExtentionType {
+  choiceImage = 'https://fhir.medlix.org/fhir/StructureDefinition/choiceImage',
+  mainImage = "https://fhir.medlix.org/fhir/StructureDefinition/mainImage",
+  image = 'https://fhir.medlix.org/fhir/StructureDefinition/image',
+}

@@ -78,7 +78,11 @@ export interface Coding extends Element {
     _userSelected?: Element;
     version?: string;
     _version?: Element;
-    image?: string;
+    extension?: {
+        url: string;
+        valueSting?: string;
+        valueBoolean?: boolean;
+    }[];
 }
 export interface ContactDetail extends Element {
     name?: string;
