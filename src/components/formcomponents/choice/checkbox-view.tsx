@@ -22,7 +22,7 @@ interface Props {
     image?: string;
     extension?: {
       url: string,
-      valueSting?: string,
+      valueString?: string,
       valueBoolean?: boolean,
     }[];
   }>;

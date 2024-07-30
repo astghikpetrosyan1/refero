@@ -80,7 +80,7 @@ export interface Coding extends Element {
     _version?: Element;
     extension?: {
         url: string;
-        valueSting?: string;
+        valueString?: string;
         valueBoolean?: boolean;
     }[];
 }

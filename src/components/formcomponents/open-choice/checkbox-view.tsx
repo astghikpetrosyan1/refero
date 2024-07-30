@@ -22,7 +22,7 @@ interface Props {
     disabled?: boolean;
     extension?: {
       url: string,
-      valueSting?: string,
+      valueString?: string,
       valueBoolean?: boolean,
     }[];
   }>;

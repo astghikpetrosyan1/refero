@@ -14,6 +14,11 @@ export interface Props {
     path: Array<Path>;
     id?: string;
     pdf?: boolean;
+    extension?: {
+        url: string;
+        valueString?: string;
+        valueBoolean?: boolean;
+    }[];
     promptLoginMessage?: () => void;
     dispatch?: ThunkDispatch<GlobalState, void, NewValueAction>;
     resources?: Resources;

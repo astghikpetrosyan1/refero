@@ -48,6 +48,7 @@ import CheckboxView from './checkbox-view';
 import DropdownView from './dropdown-view';
 import RadioView from './radio-view';
 import TextField from './text-field';
+import { IExtentionType } from '../../../util/help';
 
 export interface Props {
   item: QuestionnaireItem;
@@ -55,6 +56,11 @@ export interface Props {
   path: Array<Path>;
   id?: string;
   pdf?: boolean;
+  extension?: {
+    url: string,
+    valueString?: string,
+    valueBoolean?: boolean,
+  }[];
   promptLoginMessage?: () => void;
   dispatch?: ThunkDispatch<GlobalState, void, NewValueAction>;
   resources?: Resources;
@@ -323,10 +329,13 @@ export class OpenChoice extends React.Component<Props & ValidationProps> {
   }
 
   renderCheckbox = (options: Array<Options> | undefined): JSX.Element => {
+    const showChoiceImage = this.props.extension ? this.props.extension.find((extension) => extension.url === IExtentionType.choiceImage)?.valueBoolean : false
+
     return (
       <CheckboxView
         options={options}
         id={this.props.id}
+        showChoiceImage={showChoiceImage}
         handleChange={this.handleCheckboxChange}
         selected={this.getValue(this.props.item, this.props.answer)}
         renderOpenField={(): JSX.Element => this.renderTextField()}
@@ -358,10 +367,13 @@ export class OpenChoice extends React.Component<Props & ValidationProps> {
 
   renderRadio = (options: Array<Options> | undefined): JSX.Element => {
     const { item, resources, containedResources, children, id, answer, repeatButton, ...rest } = this.props;
+    const showChoiceImage = this.props.extension ? this.props.extension.find((extension) => extension.url === IExtentionType.choiceImage)?.valueBoolean : false
+
     return (
       <RadioView
         options={options}
         item={item}
+        showChoiceImage={showChoiceImage}
         getErrorMessage={(value: string): string => getErrorMessage(item, value, resources, containedResources)}
         handleChange={this.handleChange}
         validateInput={(value: string): boolean => validateInput(item, value, containedResources, resources)}

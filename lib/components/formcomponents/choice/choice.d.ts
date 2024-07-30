@@ -34,7 +34,7 @@ export interface ChoiceProps {
     fetchReceivers?: (successCallback: (receivers: Array<OrgenhetHierarki>) => void, errorCallback: () => void) => void;
     extension?: {
         url: string;
-        valueSting?: string;
+        valueString?: string;
         valueBoolean?: boolean;
     }[];
 }
