@@ -73,8 +73,8 @@ const RadioView: React.SFC<Props> = ({
             helpButton={renderHelpButton()}
             helpElement={renderHelpElement()}
             validateOnExternalUpdate={true}
+            fieldsetClassName={showChoiceImage ? 'image-container' : ''}
             isStyleBlue
-            {...other}
           />
         </Validation>
         {renderDeleteButton('page_refero__deletebutton--margin-top')}
