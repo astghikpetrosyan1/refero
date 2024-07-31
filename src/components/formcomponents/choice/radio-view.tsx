@@ -17,6 +17,7 @@ interface Props {
   item: QuestionnaireItem;
   questionnaire?: Questionnaire;
   id?: string;
+  showChoiceImage?: boolean;
   handleChange: (radioButton: string) => void;
   selected?: Array<string | undefined>;
   validateInput: (value: string) => boolean;
@@ -45,6 +46,7 @@ const RadioView: React.SFC<Props> = ({
   renderDeleteButton,
   renderHelpButton,
   renderHelpElement,
+  showChoiceImage,
   onRenderMarkdown,
   ...other
 }) => {
@@ -58,6 +60,7 @@ const RadioView: React.SFC<Props> = ({
       <Collapse isOpened>
         <Validation {...other}>
           <RadioGroup
+            {...item}
             legend={<Label item={item} onRenderMarkdown={onRenderMarkdown} questionnaire={questionnaire} resources={resources} />}
             subLabel={subLabelText ? <SubLabel subLabelText={subLabelText} /> : undefined}
             id={getId(id)}

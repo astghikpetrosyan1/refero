@@ -239,8 +239,10 @@ export class Choice extends React.Component<ChoiceProps & ValidationProps, Choic
   };
 
   renderRadio = (options: Array<Options> | undefined): JSX.Element => {
+    const showChoiceImage = this.props.item.extension ? this.props.item.extension.find((extension) => extension.url === IExtentionType.choiceImage)?.valueBoolean : false
     return (
       <RadioView
+        showChoiceImage={showChoiceImage}
         options={options}
         getErrorMessage={(value: string): string =>
           getErrorMessage(this.props.item, value, this.props.resources, this.props.containedResources)

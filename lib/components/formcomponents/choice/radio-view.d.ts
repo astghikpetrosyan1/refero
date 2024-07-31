@@ -7,6 +7,7 @@ interface Props {
     item: QuestionnaireItem;
     questionnaire?: Questionnaire;
     id?: string;
+    showChoiceImage?: boolean;
     handleChange: (radioButton: string) => void;
     selected?: Array<string | undefined>;
     validateInput: (value: string) => boolean;
