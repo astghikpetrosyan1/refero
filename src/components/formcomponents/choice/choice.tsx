@@ -206,7 +206,7 @@ export class Choice extends React.Component<ChoiceProps & ValidationProps, Choic
   };
 
   renderCheckbox = (options: Array<Options> | undefined): JSX.Element => {
-    const showChoiceImage = this.props.extension ? this.props.extension.find((extension) => extension.url === IExtentionType.choiceImage)?.valueBoolean : false
+    const showChoiceImage = this.props.item.extension ? this.props.item.extension.find((extension) => extension.url === IExtentionType.choiceImage)?.valueBoolean : false
     return (
       <CheckboxView
         showChoiceImage={showChoiceImage}

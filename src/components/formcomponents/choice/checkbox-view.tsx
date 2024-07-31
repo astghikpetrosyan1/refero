@@ -84,7 +84,7 @@ const CheckboxView: React.SFC<Props> = ({
             errorMessage={getValidationTextExtension(item)}
             helpButton={renderHelpButton()}
             helpElement={renderHelpElement()}
-            fieldsetClassName={item.choiceImage ? 'image-container' : ''}
+            fieldsetClassName={showChoiceImage ? 'image-container' : ''}
             validateOnExternalUpdate={true}
             isStyleBlue
             {...other}
