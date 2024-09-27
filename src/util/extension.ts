@@ -116,7 +116,7 @@ export function getMaxValueExtensionValue(item: QuestionnaireItem): number | und
 
 export function getItemTypeExtensionValue(item: QuestionnaireItem): string {
   const extension = getExtension(ExtensionConstants.isSlider, item);
-  if ( extension && extension.valueBoolean !== null &&  extension && extension.valueBoolean !== undefined) {
+  if (extension && extension.valueBoolean !== null &&  extension && extension.valueBoolean !== undefined && extension.valueBoolean) {
     return 'range';
   }
 
