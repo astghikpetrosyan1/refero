@@ -10,6 +10,7 @@ export declare function getExtension(url: string, item: QuestionnaireItem | Elem
 export declare function getPlaceholder(item: QuestionnaireItem): string | undefined;
 export declare function getQuestionnaireUnitExtensionValue(item: QuestionnaireItem): Coding | undefined;
 export declare function getMaxValueExtensionValue(item: QuestionnaireItem): number | undefined;
+export declare function getItemTypeExtensionValue(item: QuestionnaireItem): string;
 export declare function getMinValueExtensionValue(item: QuestionnaireItem): number | undefined;
 export declare function getMinOccursExtensionValue(item: QuestionnaireItem): number | undefined;
 export declare function getMaxOccursExtensionValue(item: QuestionnaireItem): number | undefined;

@@ -12,7 +12,13 @@ import SafeInputField from '@helsenorge/form/components/safe-input-field';
 
 import { NewValueAction, newDecimalValueAsync } from '../../../actions/newValue';
 import { GlobalState } from '../../../reducers';
-import { getValidationTextExtension, getPlaceholder, getMaxValueExtensionValue, getMinValueExtensionValue } from '../../../util/extension';
+import {
+  getValidationTextExtension,
+  getPlaceholder,
+  getMaxValueExtensionValue,
+  getMinValueExtensionValue,
+  getItemTypeExtensionValue
+} from '../../../util/extension';
 import { isReadOnly, isRequired, getId, getDecimalPattern, getSublabelText } from '../../../util/index';
 import { mapStateToProps, mergeProps, mapDispatchToProps } from '../../../util/map-props';
 import { Resources } from '../../../util/resources';
@@ -119,7 +125,7 @@ class Decimal extends React.Component<Props & ValidationProps, {}> {
       <div className="page_refero__component page_refero__component_decimal">
         <Validation {...this.props}>
           <SafeInputField
-            type="number"
+            type={getItemTypeExtensionValue(item)}
             id={getId(this.props.id)}
             inputName={getId(this.props.id)}
             value={value ? value + '' : ''}

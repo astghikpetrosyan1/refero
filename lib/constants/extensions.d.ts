@@ -25,5 +25,6 @@ declare const _default: {
     NAVIGATOR: string;
     SUBLABEL: string;
     HYPERLINK: string;
+    isSlider: string;
 };
 export default _default;

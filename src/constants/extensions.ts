@@ -28,4 +28,5 @@ export default {
   SUBLABEL: 'http://helsenorge.no/fhir/StructureDefinition/sdf-sublabel',
 
   HYPERLINK: 'http://helsenorge.no/fhir/StructureDefinition/sdf-hyperlink-target',
+  isSlider: 'http://hl7.org/fhir/StructureDefinition/isSlider',
 };

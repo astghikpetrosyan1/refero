@@ -114,6 +114,15 @@ export function getMaxValueExtensionValue(item: QuestionnaireItem): number | und
   return undefined;
 }
 
+export function getItemTypeExtensionValue(item: QuestionnaireItem): string {
+  const extension = getExtension(ExtensionConstants.isSlider, item);
+  if ( extension && extension.valueBoolean !== null &&  extension && extension.valueBoolean !== undefined) {
+    return 'range';
+  }
+
+  return 'number'
+}
+
 export function getMinValueExtensionValue(item: QuestionnaireItem): number | undefined {
   const minValue = getExtension(ExtensionConstants.MIN_VALUE_URL, item);
   if (minValue && minValue.valueDecimal !== null && minValue.valueDecimal !== undefined) {
