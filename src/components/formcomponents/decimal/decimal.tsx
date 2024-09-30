@@ -106,6 +106,22 @@ class Decimal extends React.Component<Props & ValidationProps, {}> {
     const { id, item, pdf, onRenderMarkdown } = this.props;
     const value = this.getValue();
     const subLabelText = getSublabelText(this.props.item, this.props.onRenderMarkdown, this.props.questionnaire, this.props.resources);
+    const type = getItemTypeExtensionValue(item)
+    const max =getMaxValueExtensionValue(item)
+    const min = getMinValueExtensionValue(item)
+
+    const fixes = {
+      sufix: type === 'range' ? (
+          <span>
+                  {max}
+                </span>
+      ) : null,
+      prefix: type === 'range' ? (
+          <span>
+                    {min}
+                  </span>
+      ) : null
+    }
 
     if (pdf || isReadOnly(item)) {
       return (
@@ -125,7 +141,7 @@ class Decimal extends React.Component<Props & ValidationProps, {}> {
       <div className="page_refero__component page_refero__component_decimal">
         <Validation {...this.props}>
           <SafeInputField
-            type={getItemTypeExtensionValue(item)}
+            type={type}
             id={getId(this.props.id)}
             inputName={getId(this.props.id)}
             value={value ? value + '' : ''}
@@ -141,8 +157,8 @@ class Decimal extends React.Component<Props & ValidationProps, {}> {
             subLabel={subLabelText ? <SubLabel subLabelText={subLabelText} /> : undefined}
             isRequired={isRequired(item)}
             placeholder={getPlaceholder(item)}
-            max={getMaxValueExtensionValue(item)}
-            min={getMinValueExtensionValue(item)}
+            max={max}
+            min={min}
             errorMessage={getValidationTextExtension(item)}
             pattern={getDecimalPattern(item)}
             className="page_refero__input"
@@ -150,6 +166,7 @@ class Decimal extends React.Component<Props & ValidationProps, {}> {
             helpElement={this.props.renderHelpElement()}
             validateOnExternalUpdate={true}
             onChange={this.handleChange}
+            {...fixes}
           />
         </Validation>
         {this.props.renderDeleteButton('page_refero__deletebutton--margin-top')}
