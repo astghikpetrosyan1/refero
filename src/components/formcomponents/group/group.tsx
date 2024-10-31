@@ -255,7 +255,7 @@ export class Group extends React.Component<Props, State> {
             fontWeight: 600,
             fontSize: "16px"
           }}>
-          {this.props?.responseItem?.item?.length} vragen
+          {this.props?.responseItem?.item?.length} {this.props?.resources?.questions}
         </span>
         ) : null}
       </div>

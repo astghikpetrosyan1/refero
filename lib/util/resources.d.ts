@@ -1,5 +1,6 @@
 export interface Resources {
     deleteButtonText: string;
+    questions: string;
     validationSummaryHeader: string;
     validationFileMax: string;
     validationFileType: string;

@@ -4,6 +4,10 @@ export interface Resources {
    */
   deleteButtonText: string;
   /**
+   * Slett
+   */
+  questions: string;
+  /**
    * Sjekk at følgende er riktig utfylt:
    */
   validationSummaryHeader: string;
