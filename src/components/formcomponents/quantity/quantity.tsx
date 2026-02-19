@@ -13,7 +13,6 @@ import {
 
 import Validation from '@helsenorge/form/components/form/validation';
 import { ValidationProps } from '@helsenorge/form/components/form/validation';
-import SafeInputField from '@helsenorge/form/components/safe-input-field';
 
 import { NewValueAction, newQuantityValueAsync } from '../../../actions/newValue';
 import { GlobalState } from '../../../reducers';
@@ -32,6 +31,7 @@ import withCommonFunctions from '../../with-common-functions';
 import Label from '../label';
 import SubLabel from '../sublabel';
 import TextView from '../textview';
+import NumberSafeInputField from "../../util/inputWrapper/numberSafeInputField";
 
 export interface Props {
   item: QuestionnaireItem;
@@ -124,24 +124,6 @@ class Quantity extends React.Component<Props & ValidationProps, {}> {
     return responseItemHasChanged || helpItemHasChanged || resourcesHasChanged || repeats || answerHasChanged;
   }
 
-  handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-    const input = e.currentTarget
-
-    const preventWheel = (event: WheelEvent) => {
-      event.preventDefault()
-    }
-
-    input.addEventListener('wheel', preventWheel, { passive: false })
-
-    const cleanup = () => {
-      input.removeEventListener('wheel', preventWheel)
-      input.removeEventListener('blur', cleanup)
-    }
-
-    input.addEventListener('blur', cleanup)
-  }
-
-
   render(): JSX.Element | null {
     const { id, item, questionnaire, onRenderMarkdown } = this.props;
     if (this.props.pdf || isReadOnly(item)) {
@@ -164,30 +146,30 @@ class Quantity extends React.Component<Props & ValidationProps, {}> {
     return (
       <div className="page_refero__component page_refero__component_quantity">
         <Validation {...this.props}>
-          <SafeInputField
-            size="xSmall"
-            type="number"
-            id={getId(this.props.id)}
-            inputName={getId(this.props.id)}
-            value={value !== undefined ? value + '' : ''}
-            showLabel={true}
-            label={<Label item={item} onRenderMarkdown={onRenderMarkdown} questionnaire={questionnaire} resources={this.props.resources} />}
-            subLabel={subLabelText ? <SubLabel subLabelText={subLabelText} /> : undefined}
-            isRequired={isRequired(item)}
-            placeholder={getPlaceholder(item)}
-            max={getMaxValueExtensionValue(item)}
-            min={getMinValueExtensionValue(item)}
-            onChange={this.handleChange}
-            errorMessage={getValidationTextExtension(item)}
-            pattern={getDecimalPattern(item)}
-            className="page_refero__quantity atom_input--1"
-            helpButton={this.props.renderHelpButton()}
-            helpElement={this.props.renderHelpElement()}
-            validateOnExternalUpdate={true}
-            onFocus={this.handleFocus}
-          >
+          <NumberSafeInputField
+              isValidationHidden={false}
+              size="xSmall"
+              type="number"
+              id={getId(this.props.id)}
+              inputName={getId(this.props.id)}
+              value={value !== undefined ? value + '' : ''}
+              showLabel={true}
+              label={<Label item={item} onRenderMarkdown={onRenderMarkdown} questionnaire={questionnaire} resources={this.props.resources} />}
+              subLabel={subLabelText ? <SubLabel subLabelText={subLabelText} /> : undefined}
+              isRequired={isRequired(item)}
+              placeholder={getPlaceholder(item)}
+              max={getMaxValueExtensionValue(item)}
+              min={getMinValueExtensionValue(item)}
+              onChange={this.handleChange}
+              errorMessage={getValidationTextExtension(item)}
+              pattern={getDecimalPattern(item)}
+              className="page_refero__quantity atom_input--1"
+              helpButton={this.props.renderHelpButton()}
+              helpElement={this.props.renderHelpElement()}
+              validateOnExternalUpdate={true}
+              >
             <span className="page_refero__unit">{this.getUnit()}</span>
-          </SafeInputField>
+          </NumberSafeInputField>
         </Validation>
         {this.props.renderDeleteButton('page_refero__deletebutton--margin-top')}
         <div>{this.props.repeatButton}</div>

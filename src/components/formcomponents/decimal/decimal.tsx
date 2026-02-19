@@ -8,7 +8,6 @@ import { Questionnaire, QuestionnaireItem, QuestionnaireResponseItemAnswer } fro
 import layoutChange from '@helsenorge/core-utils/hoc/layout-change';
 import Validation from '@helsenorge/form/components/form/validation';
 import { ValidationProps } from '@helsenorge/form/components/form/validation';
-import SafeInputField from '@helsenorge/form/components/safe-input-field';
 
 import { NewValueAction, newDecimalValueAsync } from '../../../actions/newValue';
 import { GlobalState } from '../../../reducers';
@@ -27,6 +26,7 @@ import withCommonFunctions from '../../with-common-functions';
 import Label from '../label';
 import SubLabel from '../sublabel';
 import TextView from '../textview';
+import NumberSafeInputField from "../../util/inputWrapper/numberSafeInputField";
 
 export interface Props {
   item: QuestionnaireItem;
@@ -140,33 +140,34 @@ class Decimal extends React.Component<Props & ValidationProps, {}> {
     return (
       <div className="page_refero__component page_refero__component_decimal">
         <Validation {...this.props}>
-          <SafeInputField
-            type={type}
-            id={getId(this.props.id)}
-            inputName={getId(this.props.id)}
-            value={value ? value + '' : ''}
-            showLabel={true}
-            label={
-              <Label
-                item={item}
-                onRenderMarkdown={onRenderMarkdown}
-                questionnaire={this.props.questionnaire}
-                resources={this.props.resources}
-              />
-            }
-            subLabel={subLabelText ? <SubLabel subLabelText={subLabelText} /> : undefined}
-            isRequired={isRequired(item)}
-            placeholder={getPlaceholder(item)}
-            max={max}
-            min={min}
-            errorMessage={getValidationTextExtension(item)}
-            pattern={getDecimalPattern(item)}
-            className="page_refero__input"
-            helpButton={this.props.renderHelpButton()}
-            helpElement={this.props.renderHelpElement()}
-            validateOnExternalUpdate={true}
-            onChange={this.handleChange}
-            {...fixes}
+          <NumberSafeInputField
+              isValidationHidden={false}
+              type={type}
+              id={getId(this.props.id)}
+              inputName={getId(this.props.id)}
+              value={value ? value + '' : ''}
+              showLabel={true}
+              label={
+                <Label
+                    item={item}
+                    onRenderMarkdown={onRenderMarkdown}
+                    questionnaire={this.props.questionnaire}
+                    resources={this.props.resources}
+                />
+              }
+              subLabel={subLabelText ? <SubLabel subLabelText={subLabelText} /> : undefined}
+              isRequired={isRequired(item)}
+              placeholder={getPlaceholder(item)}
+              max={max}
+              min={min}
+              errorMessage={getValidationTextExtension(item)}
+              pattern={getDecimalPattern(item)}
+              className="page_refero__input"
+              helpButton={this.props.renderHelpButton()}
+              helpElement={this.props.renderHelpElement()}
+              validateOnExternalUpdate={true}
+              onChange={this.handleChange}
+              {...fixes}
           />
         </Validation>
         {this.props.renderDeleteButton('page_refero__deletebutton--margin-top')}

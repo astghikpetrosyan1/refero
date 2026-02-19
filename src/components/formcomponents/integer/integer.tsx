@@ -8,7 +8,6 @@ import { QuestionnaireItem, QuestionnaireResponseItemAnswer, QuestionnaireRespon
 import layoutChange from '@helsenorge/core-utils/hoc/layout-change';
 import Validation from '@helsenorge/form/components/form/validation';
 import { ValidationProps } from '@helsenorge/form/components/form/validation';
-import SafeInputField from '@helsenorge/form/components/safe-input-field';
 
 import { NewValueAction, newIntegerValueAsync } from '../../../actions/newValue';
 import { GlobalState } from '../../../reducers';
@@ -21,6 +20,7 @@ import withCommonFunctions from '../../with-common-functions';
 import Label from '../label';
 import SubLabel from '../sublabel';
 import TextView from '../textview';
+import NumberSafeInputField from "../../util/inputWrapper/numberSafeInputField";
 
 export interface Props {
   item: QuestionnaireItem;
@@ -117,40 +117,40 @@ class Integer extends React.Component<Props & ValidationProps, {}> {
     return (
       <div className="page_refero__component page_refero__component_integer">
         <Validation {...this.props}>
-          <SafeInputField
-            type="number"
-            id={getId(this.props.id)}
-            inputName={getId(this.props.id)}
-            value={value !== undefined && value !== null ? value + '' : ''}
-            showLabel={true}
-            label={
-              <Label
-                item={this.props.item}
-                onRenderMarkdown={this.props.onRenderMarkdown}
-                questionnaire={this.props.questionnaire}
-                resources={this.props.resources}
-              />
-            }
-            subLabel={subLabelText ? <SubLabel subLabelText={subLabelText} /> : undefined}
-            isRequired={isRequired(this.props.item)}
-            placeholder={getPlaceholder(this.props.item)}
-            max={getMaxValueExtensionValue(this.props.item)}
-            min={getMinValueExtensionValue(this.props.item)}
-            errorMessage={getValidationTextExtension(this.props.item)}
-            inputProps={{
-              step: '1',
-              onKeyPress: (e: React.KeyboardEvent<{}>): void => {
-                const key = String.fromCharCode(e.which);
-                if ('0123456789-'.indexOf(key) === -1) {
-                  e.preventDefault();
-                }
-              },
-            }}
-            className="page_refero__input atom_input--4"
-            onChange={this.handleChange}
-            helpButton={this.props.renderHelpButton()}
-            helpElement={this.props.renderHelpElement()}
-            validateOnExternalUpdate={true}
+          <NumberSafeInputField
+              isValidationHidden={false}
+              id={getId(this.props.id)}
+              inputName={getId(this.props.id)}
+              value={value !== undefined && value !== null ? value + '' : ''}
+              showLabel={true}
+              label={
+                <Label
+                    item={this.props.item}
+                    onRenderMarkdown={this.props.onRenderMarkdown}
+                    questionnaire={this.props.questionnaire}
+                    resources={this.props.resources}
+                />
+              }
+              subLabel={subLabelText ? <SubLabel subLabelText={subLabelText} /> : undefined}
+              isRequired={isRequired(this.props.item)}
+              placeholder={getPlaceholder(this.props.item)}
+              max={getMaxValueExtensionValue(this.props.item)}
+              min={getMinValueExtensionValue(this.props.item)}
+              errorMessage={getValidationTextExtension(this.props.item)}
+              inputProps={{
+                step: '1',
+                onKeyPress: (e: React.KeyboardEvent<{}>): void => {
+                  const key = String.fromCharCode(e.which);
+                  if ('0123456789-'.indexOf(key) === -1) {
+                    e.preventDefault();
+                  }
+                },
+              }}
+              className="page_refero__input atom_input--4"
+              onChange={this.handleChange}
+              helpButton={this.props.renderHelpButton()}
+              helpElement={this.props.renderHelpElement()}
+              validateOnExternalUpdate={true}
           />
         </Validation>
         {this.props.renderDeleteButton('page_refero__deletebutton--margin-top')}
