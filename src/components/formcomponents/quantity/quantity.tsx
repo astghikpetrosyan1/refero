@@ -166,6 +166,7 @@ class Quantity extends React.Component<Props & ValidationProps, {}> {
             helpButton={this.props.renderHelpButton()}
             helpElement={this.props.renderHelpElement()}
             validateOnExternalUpdate={true}
+            onWheel={(e: React.WheelEvent<HTMLInputElement>) => e.currentTarget.blur()}
           >
             <span className="page_refero__unit">{this.getUnit()}</span>
           </SafeInputField>
