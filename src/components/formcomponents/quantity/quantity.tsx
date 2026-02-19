@@ -124,6 +124,24 @@ class Quantity extends React.Component<Props & ValidationProps, {}> {
     return responseItemHasChanged || helpItemHasChanged || resourcesHasChanged || repeats || answerHasChanged;
   }
 
+  handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+    const input = e.currentTarget
+
+    const preventWheel = (event: WheelEvent) => {
+      event.preventDefault()
+    }
+
+    input.addEventListener('wheel', preventWheel, { passive: false })
+
+    const cleanup = () => {
+      input.removeEventListener('wheel', preventWheel)
+      input.removeEventListener('blur', cleanup)
+    }
+
+    input.addEventListener('blur', cleanup)
+  }
+
+
   render(): JSX.Element | null {
     const { id, item, questionnaire, onRenderMarkdown } = this.props;
     if (this.props.pdf || isReadOnly(item)) {
@@ -166,6 +184,7 @@ class Quantity extends React.Component<Props & ValidationProps, {}> {
             helpButton={this.props.renderHelpButton()}
             helpElement={this.props.renderHelpElement()}
             validateOnExternalUpdate={true}
+            onFocus={this.handleFocus}
           >
             <span className="page_refero__unit">{this.getUnit()}</span>
           </SafeInputField>
