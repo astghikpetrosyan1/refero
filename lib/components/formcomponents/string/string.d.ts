@@ -30,7 +30,6 @@ export interface Props {
 }
 export declare class String extends React.Component<Props & ValidationProps, {}> {
     handleChange: (event: React.FormEvent<{}>) => void;
-    debouncedHandleChange: (event: React.FormEvent<{}>) => void;
     shouldComponentUpdate(nextProps: Props): boolean;
     validateText: (value: string) => boolean;
     getValidationErrorMessage: (value: string) => string;

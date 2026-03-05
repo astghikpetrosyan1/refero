@@ -30,7 +30,6 @@ export interface Props {
 export declare class Text extends React.Component<Props & ValidationProps, {}> {
     showCounter(): boolean;
     handleChange: (event: React.FormEvent<{}>) => void;
-    debouncedHandleChange: (event: React.FormEvent<{}>) => void;
     validateText: (value: string) => boolean;
     validateWithRegex: (value: string) => boolean;
     getValidationErrorMessage: (value: string) => string;
