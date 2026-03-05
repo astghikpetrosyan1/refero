@@ -162,6 +162,10 @@ class Refero extends React.Component<StateProps & DispatchProps & ReferoProps, S
       }
 
       for (const itemAndPath of itemsAndPaths) {
+        const currentAnswer = getAnswerFromResponseItem(itemAndPath.item);
+        if (currentAnswer && !Array.isArray(currentAnswer) && currentAnswer.valueQuantity && currentAnswer.valueQuantity.value === quantity.value) {
+          continue;
+        }
         actions.push(newQuantityValue(itemAndPath.path, quantity, item));
       }
     }

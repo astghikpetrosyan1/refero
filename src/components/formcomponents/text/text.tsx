@@ -9,7 +9,6 @@ import { Questionnaire, QuestionnaireItem, QuestionnaireResponseItemAnswer, Ques
 
 import Expander from '@helsenorge/designsystem-react/components/Expander';
 
-import { debounce } from '@helsenorge/core-utils/debounce';
 import Validation from '@helsenorge/form/components/form/validation';
 import { ValidationProps } from '@helsenorge/form/components/form/validation';
 import { SafeTextarea } from '@helsenorge/form/components/safe-textarea';
@@ -82,8 +81,6 @@ export class Text extends React.Component<Props & ValidationProps, {}> {
       promptLoginMessage();
     }
   };
-
-  debouncedHandleChange: (event: React.FormEvent<{}>) => void = debounce(this.handleChange, 250, false);
 
   validateText = (value: string): boolean => {
     return this.validateWithRegex(value) && validateText(value, this.props.validateScriptInjection);
@@ -188,8 +185,7 @@ export class Text extends React.Component<Props & ValidationProps, {}> {
             minlength={getMinLengthExtensionValue(item)}
             counter={this.showCounter()}
             onChange={(event: React.FormEvent<{}>): void => {
-              event.persist();
-              this.debouncedHandleChange(event);
+              this.handleChange(event);
             }}
             validator={this.validateText}
             errorMessage={this.getValidationErrorMessage}

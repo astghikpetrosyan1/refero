@@ -5,7 +5,6 @@ import { ThunkDispatch } from 'redux-thunk';
 
 import { QuestionnaireItem, QuestionnaireResponseItemAnswer, QuestionnaireResponseItem, Questionnaire } from '../../../types/fhir';
 
-import { debounce } from '@helsenorge/core-utils/debounce';
 import layoutChange from '@helsenorge/core-utils/hoc/layout-change';
 import Validation from '@helsenorge/form/components/form/validation';
 import { ValidationProps } from '@helsenorge/form/components/form/validation';
@@ -61,7 +60,7 @@ export class String extends React.Component<Props & ValidationProps, {}> {
     const { dispatch, promptLoginMessage, path, item, onAnswerChange } = this.props;
     const value = (event.target as HTMLInputElement).value;
     if (dispatch) {
-      dispatch(newStringValueAsync(this.props.path, value, this.props.item))?.then(newState =>
+      dispatch(newStringValueAsync(path, value, item))?.then(newState =>
         onAnswerChange(newState, path, item, { valueString: value } as QuestionnaireResponseItemAnswer)
       );
     }
@@ -70,8 +69,6 @@ export class String extends React.Component<Props & ValidationProps, {}> {
       promptLoginMessage();
     }
   };
-
-  debouncedHandleChange: (event: React.FormEvent<{}>) => void = debounce(this.handleChange, 250, false);
 
   shouldComponentUpdate(nextProps: Props): boolean {
     const responseItemHasChanged = this.props.responseItem !== nextProps.responseItem;
@@ -131,8 +128,7 @@ export class String extends React.Component<Props & ValidationProps, {}> {
             minLength={getMinLengthExtensionValue(item)}
             maxLength={getMaxLength(item)}
             onChange={(event: React.FormEvent<{}>): void => {
-              event.persist();
-              this.debouncedHandleChange(event);
+              this.handleChange(event);
             }}
             pattern={getRegexExtension(item)}
             errorMessage={this.getValidationErrorMessage}
