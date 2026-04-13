@@ -58,6 +58,7 @@ const textField: React.SFC<Props & ValidationProps> = ({
         placeholder={getPlaceholder(item)}
         minLength={getMinLengthExtensionValue(item)}
         maxLength={getMaxLength(item)}
+        extension={item.extension}
         readOnly={isReadOnly(item)}
         onBlur={handleStringChange}
         pattern={getRegexExtension(item)}

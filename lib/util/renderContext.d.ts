@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { QuestionnaireItem } from '../types/fhir';
 import { RenderContextType } from '../constants/renderContextType';
 export declare class RenderContext {

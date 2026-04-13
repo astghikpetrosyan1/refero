@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { QuestionnaireItem, QuestionnaireResponseItemAnswer, Resource } from '../types/fhir';
 import { Options } from '@helsenorge/form/components/radio-group';
 import { Resources } from './resources';

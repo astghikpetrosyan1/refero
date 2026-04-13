@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { QuestionnaireItem, Questionnaire } from '../../types/fhir';
 import { Resources } from '../../util/resources';
 interface Props {

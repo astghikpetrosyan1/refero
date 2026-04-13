@@ -136,6 +136,7 @@ class Integer extends React.Component<Props & ValidationProps, {}> {
             placeholder={getPlaceholder(this.props.item)}
             max={getMaxValueExtensionValue(this.props.item)}
             min={getMinValueExtensionValue(this.props.item)}
+            extension={this.props.item.extension}
             errorMessage={getValidationTextExtension(this.props.item)}
             inputProps={{
               step: '1',

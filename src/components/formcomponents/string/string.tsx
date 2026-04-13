@@ -127,6 +127,7 @@ export class String extends React.Component<Props & ValidationProps, {}> {
             placeholder={getPlaceholder(item)}
             minLength={getMinLengthExtensionValue(item)}
             maxLength={getMaxLength(item)}
+            extension={item.extension}
             onChange={(event: React.FormEvent<{}>): void => {
               this.handleChange(event);
             }}

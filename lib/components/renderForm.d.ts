@@ -14,5 +14,5 @@ interface RenderFormProps {
     nextStep?: () => void;
     previousStep?: () => void;
 }
-declare const RenderForm: ({ isAuthorized, isStepView, referoProps, resources, formItemsToBeRendered, onSave, onSubmit, displayNextButton, displayPreviousButton, nextStep, previousStep, }: RenderFormProps) => JSX.Element;
+declare const RenderForm: ({ isAuthorized, isStepView, referoProps, resources, formItemsToBeRendered, onSave, onSubmit, displayNextButton, displayPreviousButton, nextStep, previousStep, }: RenderFormProps) => React.JSX.Element;
 export default RenderForm;

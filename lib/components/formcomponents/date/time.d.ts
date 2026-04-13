@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { ThunkDispatch } from 'redux-thunk';
 import { QuestionnaireItem, QuestionnaireResponseItemAnswer, QuestionnaireResponseItem, Questionnaire } from '../../../types/fhir';
 import { ValidationProps } from '@helsenorge/form/components/form/validation';

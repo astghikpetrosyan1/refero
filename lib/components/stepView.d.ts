@@ -12,5 +12,5 @@ interface StepViewProps {
     onSubmit: (event?: React.FormEvent) => void;
     onStepChange?: (stepIndex: number) => void;
 }
-declare const StepView: ({ isAuthorized, referoProps, resources, formItems, formDefinition, onSave, onSubmit, onStepChange }: StepViewProps) => JSX.Element;
+declare const StepView: ({ isAuthorized, referoProps, resources, formItems, formDefinition, onSave, onSubmit, onStepChange }: StepViewProps) => React.JSX.Element;
 export default StepView;

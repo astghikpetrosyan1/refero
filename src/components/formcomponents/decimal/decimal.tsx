@@ -111,16 +111,8 @@ class Decimal extends React.Component<Props & ValidationProps, {}> {
     const min = getMinValueExtensionValue(item)
 
     const fixes = {
-      sufix: type === 'range' ? (
-          <span>
-                  {max}
-                </span>
-      ) : null,
-      prefix: type === 'range' ? (
-          <span>
-                    {min}
-                  </span>
-      ) : null
+      sufix: type === 'range' ? `${max}` : undefined,
+      prefix: type === 'range' ? `${min}` : undefined
     }
 
     if (pdf || isReadOnly(item)) {
@@ -159,6 +151,7 @@ class Decimal extends React.Component<Props & ValidationProps, {}> {
             placeholder={getPlaceholder(item)}
             max={max}
             min={min}
+            extension={item.extension}
             errorMessage={getValidationTextExtension(item)}
             pattern={getDecimalPattern(item)}
             className="page_refero__input"

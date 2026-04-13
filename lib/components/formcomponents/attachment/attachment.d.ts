@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { ThunkDispatch } from 'redux-thunk';
 import { QuestionnaireItem, QuestionnaireResponseItemAnswer, Attachment, QuestionnaireResponseItem, Questionnaire } from '../../../types/fhir';
 import { TextMessage } from '../../../types/text-message';
