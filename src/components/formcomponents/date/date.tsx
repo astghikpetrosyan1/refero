@@ -194,12 +194,12 @@ class DateComponent extends React.Component<Props & ValidationProps> {
     }
 
     return (
-      <div className="page_refero__component page_refero__component_date">
+      <>
         {element}
         {this.props.renderDeleteButton('page_refero__deletebutton--margin-top')}
         {this.props.repeatButton}
         {this.props.children ? <div className="nested-fieldset nested-fieldset--full-height">{this.props.children}</div> : null}
-      </div>
+      </>
     );
   }
 }
