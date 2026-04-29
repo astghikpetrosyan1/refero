@@ -13,7 +13,7 @@ import itemControlConstants from '../../../constants/itemcontrol';
 import { GlobalState } from '../../../reducers';
 import { getExtension, getItemControlExtensionValue } from '../../../util/extension';
 import { evaluateFhirpathExpressionToGetDate } from '../../../util/fhirpathHelper';
-import { getSublabelText, isReadOnly } from '../../../util/index';
+import { getSublabelText } from '../../../util/index';
 import { mapStateToProps, mergeProps, mapDispatchToProps } from '../../../util/map-props';
 import { Resources } from '../../../util/resources';
 import { Path } from '../../../util/refero-core';
@@ -191,10 +191,6 @@ class DateComponent extends React.Component<Props & ValidationProps> {
           {...this.props}
         />
       );
-    }
-
-    if (this.props.pdf || isReadOnly(this.props.item)) {
-      return element || null;
     }
 
     return (
