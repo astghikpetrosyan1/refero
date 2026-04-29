@@ -13,7 +13,7 @@ import itemControlConstants from '../../../constants/itemcontrol';
 import { GlobalState } from '../../../reducers';
 import { getExtension, getItemControlExtensionValue } from '../../../util/extension';
 import { evaluateFhirpathExpressionToGetDate } from '../../../util/fhirpathHelper';
-import { getSublabelText } from '../../../util/index';
+import { getSublabelText, isReadOnly } from '../../../util/index';
 import { mapStateToProps, mergeProps, mapDispatchToProps } from '../../../util/map-props';
 import { Resources } from '../../../util/resources';
 import { Path } from '../../../util/refero-core';
@@ -193,13 +193,17 @@ class DateComponent extends React.Component<Props & ValidationProps> {
       );
     }
 
+    if (this.props.pdf || isReadOnly(this.props.item)) {
+      return element || null;
+    }
+
     return (
-      <>
+      <div className="page_refero__component page_refero__component_date">
         {element}
         {this.props.renderDeleteButton('page_refero__deletebutton--margin-top')}
         {this.props.repeatButton}
         {this.props.children ? <div className="nested-fieldset nested-fieldset--full-height">{this.props.children}</div> : null}
-      </>
+      </div>
     );
   }
 }
