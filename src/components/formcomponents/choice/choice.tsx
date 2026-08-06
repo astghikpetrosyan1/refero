@@ -19,7 +19,16 @@ import { Options } from '@helsenorge/form/components/radio-group';
 
 import { NewValueAction, newCodingValueAsync, removeCodingValueAsync } from '../../../actions/newValue';
 import { GlobalState } from '../../../reducers';
-import { getOptions, getSystem, getErrorMessage, validateInput, getIndexOfAnswer, getDisplay, renderOptions } from '../../../util/choice';
+import {
+  getOptions,
+  getSystem,
+  getErrorMessage,
+  validateInput,
+  getIndexOfAnswer,
+  getDisplay,
+  renderOptions,
+  getCodesToClearForExclusiveSelection,
+} from '../../../util/choice';
 import { isReadOnly, isDataReceiver } from '../../../util/index';
 import { mapStateToProps, mergeProps, mapDispatchToProps } from '../../../util/map-props';
 import { Resources } from '../../../util/resources';
@@ -140,8 +149,30 @@ export class Choice extends React.Component<ChoiceProps & ValidationProps, Choic
   };
 
   getAnswerValueCoding = (code: string, systemArg?: string, displayArg?: string): Coding => {
-    const display = displayArg ? displayArg : getDisplay(getOptions(this.props.resources, this.props.item, this.props.containedResources), code);
-    const system = systemArg ? systemArg : getSystem(this.props.item, code, this.props.containedResources);
+    const { item, containedResources, resources } = this.props;
+    const option = item.answerOption?.find(o => o.valueCoding?.code === code);
+    if (option && option.valueCoding) {
+      const coding = { ...option.valueCoding };
+
+      const imageExtensionsFromOption = option.extension?.filter(ext =>
+        ext.url === IExtentionType.choiceImage ||
+        ext.url === IExtentionType.mainImage ||
+        ext.url === IExtentionType.image
+      ) || [];
+
+      if (imageExtensionsFromOption.length > 0) {
+        const existingUrls = new Set(coding.extension?.map(ext => ext.url));
+        const newExtensions = imageExtensionsFromOption.filter(ext => !existingUrls.has(ext.url));
+        if (newExtensions.length > 0) {
+          coding.extension = [...(coding.extension || []), ...newExtensions];
+        }
+      }
+      return coding;
+    }
+
+    const options = getOptions(resources, item, containedResources);
+    const display = displayArg ? displayArg : getDisplay(options, code);
+    const system = systemArg ? systemArg : getSystem(item, code, containedResources);
     return { code, display, system } as Coding;
   }
 
@@ -164,20 +195,24 @@ export class Choice extends React.Component<ChoiceProps & ValidationProps, Choic
   };
 
   handleCheckboxChange = (code?: string): void => {
-    const { dispatch, answer, promptLoginMessage, item, onAnswerChange, path } = this.props;
+    const { dispatch, answer, promptLoginMessage, item, onAnswerChange, path, resources, containedResources } = this.props;
     if (dispatch && code) {
       const coding = this.getAnswerValueCoding(code);
-      const responseAnswer = { valueCoding: coding  } as QuestionnaireResponseItemAnswer;
+      const responseAnswer = { valueCoding: coding } as QuestionnaireResponseItemAnswer;
       if (getIndexOfAnswer(code, answer) > -1) {
         dispatch(removeCodingValueAsync(path, coding, item))?.then(newState => onAnswerChange(newState, path, item, responseAnswer));
-        if (promptLoginMessage) {
-          promptLoginMessage();
-        }
       } else {
+        const options = getOptions(resources, item, containedResources);
+        const codesToClear = getCodesToClearForExclusiveSelection(options, this.getValue(item, answer), code);
+        codesToClear.forEach(selectedCode => {
+          dispatch(removeCodingValueAsync(path, this.getAnswerValueCoding(selectedCode), item))?.then(newState =>
+            onAnswerChange(newState, path, item, responseAnswer)
+          );
+        });
         dispatch(newCodingValueAsync(path, coding, item, true))?.then(newState => onAnswerChange(newState, path, item, responseAnswer));
-        if (promptLoginMessage) {
-          promptLoginMessage();
-        }
+      }
+      if (promptLoginMessage) {
+        promptLoginMessage();
       }
     }
   };

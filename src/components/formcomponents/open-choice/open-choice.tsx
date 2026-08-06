@@ -37,6 +37,7 @@ import {
   getSystem,
   getIndexOfAnswer,
   getItemControlValue,
+  getCodesToClearForExclusiveSelection,
 } from '../../../util/choice';
 import { mapStateToProps, mergeProps, mapDispatchToProps } from '../../../util/map-props';
 import { Resources } from '../../../util/resources';
@@ -213,7 +214,7 @@ export class OpenChoice extends React.Component<Props & ValidationProps> {
   };
 
   handleCheckboxChange = (code?: string): void => {
-    const { dispatch, answer, promptLoginMessage, item, onAnswerChange, path } = this.props;
+    const { dispatch, answer, promptLoginMessage, item, onAnswerChange, path, resources, containedResources } = this.props;
     if (dispatch && code) {
       const coding = this.getAnswerValueCoding(code);
       const responseAnswer = { valueCoding: coding } as QuestionnaireResponseItemAnswer;
@@ -226,6 +227,13 @@ export class OpenChoice extends React.Component<Props & ValidationProps> {
           promptLoginMessage();
         }
       } else {
+        const options = getOptions(resources, item, containedResources);
+        const codesToClear = getCodesToClearForExclusiveSelection(options, this.getValue(item, answer), code);
+        codesToClear.forEach(selectedCode => {
+          dispatch(removeCodingValueAsync(path, this.getAnswerValueCoding(selectedCode), item))?.then(newState =>
+            onAnswerChange(newState, path, item, responseAnswer)
+          );
+        });
         dispatch(newCodingValueAsync(this.props.path, coding, this.props.item, true))?.then(newState =>
           onAnswerChange(newState, path, item, responseAnswer)
         );
