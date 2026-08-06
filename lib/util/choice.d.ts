@@ -1,4 +1,4 @@
-import { QuestionnaireItem, QuestionnaireResponseItemAnswer, Resource } from '../types/fhir';
+import { QuestionnaireItem, Extension, QuestionnaireResponseItemAnswer, Resource } from '../types/fhir';
 import { Options } from '@helsenorge/form/components/radio-group';
 import { Resources } from './resources';
 export declare function hasCanonicalValueSet(item: QuestionnaireItem): boolean;
@@ -6,6 +6,9 @@ export declare function hasOptions(resources: Resources | undefined, item: Quest
 export declare function getOptions(resources: Resources | undefined, item: QuestionnaireItem, containedResources?: Resource[]): Array<Options> | undefined;
 export declare function getSystem(item: QuestionnaireItem, code: string, containedResources?: Resource[]): string | undefined;
 export declare function getDisplay(options: Array<Options> | undefined, value: string | undefined): string | undefined;
+export declare function getExtension(options: Array<Options> | undefined, value: string | undefined): Extension[] | undefined;
+export declare function isExclusiveOption(options: Array<Options> | undefined, code: string | undefined): boolean;
+export declare function getCodesToClearForExclusiveSelection(options: Array<Options> | undefined, selectedCodes: (string | undefined)[] | undefined, code: string): string[];
 export declare function renderOptions(item: QuestionnaireItem, containedResources: Resource[] | undefined, renderRadio: (o: Array<Options> | undefined) => JSX.Element, renderCheckbox: (o: Array<Options> | undefined) => JSX.Element, renderDropdown: (o: Array<Options> | undefined) => JSX.Element, resources: Resources | undefined, renderAutosuggest: () => JSX.Element, renderReceiverComponent?: () => JSX.Element): JSX.Element | null;
 export declare function getItemControlValue(item: QuestionnaireItem): string | undefined;
 export declare function getErrorMessage(item: QuestionnaireItem, value: string, resources: Resources | undefined, containedResources: Resource[] | undefined): string;

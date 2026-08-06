@@ -19,6 +19,7 @@ import Constants, { OPEN_CHOICE_ID } from '../constants/index';
 import itemControlConstants from '../constants/itemcontrol';
 import ItemType from '../constants/itemType';
 import { getItemControlExtensionValue, getValidationTextExtension } from './extension';
+import { IExtentionType } from './help';
 import { Resources } from './resources';
 
 import { isReadOnly, isRequired } from './index';
@@ -95,6 +96,51 @@ export function getDisplay(options: Array<Options> | undefined, value: string | 
     }
   });
   return display;
+}
+
+export function getExtension(options: Array<Options> | undefined, value: string | undefined): Extension[] | undefined {
+  if (!options || options.length === 0) {
+    return undefined;
+  }
+  const option = options.find(o => o.type === value)
+
+  return option?.extension;
+}
+
+/**
+ * FHIR questionnaire-optionExclusive: if true, selecting this option clears all other
+ * answers on a multi-select (checkbox) item, and selecting any other option clears it.
+ */
+export function isExclusiveOption(options: Array<Options> | undefined, code: string | undefined): boolean {
+  if (!code) {
+    return false;
+  }
+  return !!getExtension(options, code)?.find(
+    ext => ext.url === IExtentionType.optionExclusive && ext.valueBoolean
+  );
+}
+
+/**
+ * Returns answer codes that must be removed before selecting `code`, per optionExclusive rules.
+ * - Selecting an exclusive option → remove every currently selected code
+ * - Selecting a non-exclusive option → remove any currently selected exclusive codes
+ */
+export function getCodesToClearForExclusiveSelection(
+  options: Array<Options> | undefined,
+  selectedCodes: (string | undefined)[] | undefined,
+  code: string
+): string[] {
+  if (!selectedCodes || selectedCodes.length === 0) {
+    return [];
+  }
+
+  if (isExclusiveOption(options, code)) {
+    return selectedCodes.filter((selectedCode): selectedCode is string => !!selectedCode);
+  }
+
+  return selectedCodes.filter(
+    (selectedCode): selectedCode is string => !!selectedCode && isExclusiveOption(options, selectedCode)
+  );
 }
 
 export function renderOptions(
@@ -297,30 +343,32 @@ function createRadiogroupOptionFromQuestionnaireExtension(extension: Extension, 
 
 function createRadiogroupOptionFromQuestionnaireOption(option: QuestionnaireItemAnswerOption, readOnly: boolean): Options | undefined {
   if (option.valueString) {
-    return createRadiogroupOptionFromValueString(option.valueString, readOnly);
+    return createRadiogroupOption(option.valueString, option.valueString, readOnly, option.extension);
   } else if (option.valueInteger) {
-    return createRadiogroupOptionFromValueInteger(option.valueInteger, readOnly);
+    return createRadiogroupOption(String(option.valueInteger), String(option.valueInteger), readOnly, option.extension);
   } else if (option.valueTime) {
-    return createRadiogroupOptionFromValueTime(option.valueTime, readOnly);
+    return createRadiogroupOption(String(option.valueTime), String(option.valueTime), readOnly, option.extension);
   } else if (option.valueDate) {
-    return createRadiogroupOptionFromValueDate(option.valueDate, readOnly);
+    return createRadiogroupOption(String(option.valueDate), String(option.valueDate), readOnly, option.extension);
   } else if (option.valueReference) {
-    return createRadiogroupOptionFromValueReference(option.valueReference, readOnly);
+    return createRadiogroupOptionFromValueReference(option.valueReference, readOnly, option.extension);
   } else if (option.valueCoding) {
-    return createRadiogroupOptionFromValueCoding(option.valueCoding, readOnly);
+    return createRadiogroupOptionFromValueCoding(option.valueCoding, readOnly, option.extension);
   }
 
   return undefined;
 }
 
-function createRadiogroupOptionFromValueCoding(coding: Coding, readOnly: boolean): Options {
+function createRadiogroupOptionFromValueCoding(coding: Coding, readOnly: boolean, extension?: Extension[]): Options {
+  const combinedExtension = [...(coding.extension || []), ...(extension || [])];
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  return createRadiogroupOption(String(coding.code), String(coding.display), readOnly, coding.extension);
+  return createRadiogroupOption(String(coding.code), String(coding.display), readOnly, combinedExtension);
 }
 
-function createRadiogroupOptionFromValueReference(reference: Reference, readOnly: boolean): Options {
-  return createRadiogroupOption(String(reference.reference), String(reference.display), readOnly);
+function createRadiogroupOptionFromValueReference(reference: Reference, readOnly: boolean, extension?: Extension[]): Options {
+  const combinedExtension = [...(reference.extension || []), ...(extension || [])];
+  return createRadiogroupOption(String(reference.reference), String(reference.display), readOnly, combinedExtension);
 }
 
 function createRadiogroupOptionFromValueDate(value: string, readOnly: boolean): Options {
@@ -389,15 +437,16 @@ function getExpansionOptions(valueSet: ValueSet, disabled: boolean): Array<Optio
   return options;
 }
 
-function createRadiogroupOption(type: string, label: string, disabled: boolean, extension = []): {
+function createRadiogroupOption(
+  type: string,
+  label: string,
+  disabled: boolean,
+  extension: Extension[] = []
+): {
   type: string;
   label: string;
   disabled?: boolean;
-  extension?: {
-    url: string,
-    valueString?: string,
-    valueBoolean?: boolean,
-  }[]
+  extension?: Extension[];
 } {
   return {
     type: type,

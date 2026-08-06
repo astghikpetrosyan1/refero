@@ -5,5 +5,6 @@ export declare function getHelpItemType(item: QuestionnaireItem): string | undef
 export declare enum IExtentionType {
     choiceImage = "https://fhir.medlix.org/fhir/StructureDefinition/choiceImage",
     mainImage = "https://fhir.medlix.org/fhir/StructureDefinition/mainImage",
-    image = "https://fhir.medlix.org/fhir/StructureDefinition/image"
+    image = "https://fhir.medlix.org/fhir/StructureDefinition/image",
+    optionExclusive = "http://hl7.org/fhir/StructureDefinition/questionnaire-optionExclusive"
 }
