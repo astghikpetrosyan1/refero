@@ -11,6 +11,7 @@ declare const _default: {
     QUESTIONNAIRE_UNIT: string;
     MARKDOWN_URL: string;
     QUESTIONNAIRE_HIDDEN: string;
+    QUESTIONNAIRE_HIDDEN_ON_WEB: string;
     ORDINAL_VALUE: string;
     VALIDATIONTEXT_URL: string;
     REPEATSTEXT_URL: string;
