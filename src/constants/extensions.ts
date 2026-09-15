@@ -11,6 +11,7 @@ export default {
   QUESTIONNAIRE_UNIT: 'http://hl7.org/fhir/StructureDefinition/questionnaire-unit',
   MARKDOWN_URL: 'http://hl7.org/fhir/StructureDefinition/rendering-markdown',
   QUESTIONNAIRE_HIDDEN: 'http://hl7.org/fhir/StructureDefinition/questionnaire-hidden',
+  QUESTIONNAIRE_HIDDEN_ON_WEB: 'https://fhir.medlix.org/fhir/StructureDefinition/questionnaire-hidden-on-web',
   ORDINAL_VALUE: 'http://hl7.org/fhir/StructureDefinition/ordinalValue',
 
   VALIDATIONTEXT_URL: 'http://ehelse.no/fhir/StructureDefinition/validationtext',

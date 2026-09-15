@@ -199,11 +199,13 @@ export function getSublabelExtensionValue(item: QuestionnaireItem | Element): st
 }
 
 export function getQuestionnaireHiddenExtensionValue(item: QuestionnaireItem): boolean | undefined {
-  const questionnaireHiddenExtension = getExtension(ExtensionConstants.QUESTIONNAIRE_HIDDEN, item);
-  if (!questionnaireHiddenExtension || !questionnaireHiddenExtension.valueBoolean) {
-    return false;
-  }
-  return questionnaireHiddenExtension.valueBoolean;
+  const isHidden = item.extension?.some(
+    ext =>
+      (ext.url === ExtensionConstants.QUESTIONNAIRE_HIDDEN ||
+        ext.url === ExtensionConstants.QUESTIONNAIRE_HIDDEN_ON_WEB) &&
+      ext.valueBoolean === true,
+  );
+  return isHidden ?? false;
 }
 
 export function getCalculatedExpressionExtension(item: QuestionnaireItem): Extension | undefined {
